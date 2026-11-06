@@ -26,7 +26,7 @@
 <meta name="theme-color" content="#0b0a08">
 <link rel="icon" type="image/png" sizes="64x64" href="img/favicon.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&family=Heebo:wght@700;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&family=Heebo:wght@700;900&family=Noto+Sans:wght@400;600;700;900&display=swap">
 <style>
 /* Layout: the site's own dark hero, carried onto a single phone-width card: portrait fading into black, gold monogram, gold hairline, pill buttons. Single deliberate dark look, like the site itself. */
 :root{
@@ -35,8 +35,8 @@
   --gold:#c2a04d; --gold-light:#f8e2b2; --gold-deep:#ba9846;
   --gold-grad:linear-gradient(61.46deg,#c2a04d 1.24%,#f8e2b2 47.63%,#ba9846 94.03%);
   --line:rgba(194,160,77,.28); --whatsapp:#25d366;
-  --display:"Heebo","Assistant","Arial Hebrew",sans-serif;
-  --body:"Assistant","Heebo","Arial Hebrew",sans-serif;
+  --display:"Heebo","Assistant","Noto Sans","Arial Hebrew",sans-serif;
+  --body:"Assistant","Heebo","Noto Sans","Arial Hebrew",sans-serif;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
@@ -61,6 +61,17 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offse
 .hero .avail{position:absolute;top:26px;left:22px;z-index:2;display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--gold-light);background:rgba(11,10,8,.55);border:1px solid var(--line);border-radius:60px;padding:5px 11px;backdrop-filter:blur(6px)}
 .hero .avail i{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 3px rgba(194,160,77,.25)}
 
+/* language switcher */
+.langs{display:flex;gap:8px;justify-content:center;margin-bottom:10px}
+.langs button{width:34px;height:34px;padding:0;border-radius:50%;border:1.5px solid rgba(255,255,255,.18);background:rgba(11,10,8,.55);cursor:pointer;display:grid;place-items:center;transition:transform .15s,border-color .15s,box-shadow .15s;backdrop-filter:blur(6px)}
+.langs button svg{width:26px;height:26px;border-radius:50%;display:block}
+.langs button:hover{transform:translateY(-1px);border-color:var(--gold)}
+.langs button[aria-pressed="true"]{border-color:var(--gold);box-shadow:0 0 0 2px rgba(194,160,77,.35)}
+.langs button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.langname{font-size:11px;letter-spacing:.14em;color:var(--mute);font-weight:600;text-transform:uppercase;margin:-4px 0 6px}
+:root[lang="ru"],:root[lang="el"]{--display:"Noto Sans","Heebo",sans-serif;--body:"Noto Sans","Assistant",sans-serif}
+:root[lang="ru"] h1,:root[lang="el"] h1{font-size:34px}
+[dir="ltr"] .row{text-align:left}
 /* identity */
 .id{text-align:center;margin-top:-56px;position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:6px}
 .id .role{font-size:13px;letter-spacing:.16em;color:var(--gold);font-weight:600;text-transform:uppercase}
@@ -136,91 +147,93 @@ footer{text-align:center;color:var(--mute);font-size:12px;margin-top:36px;letter
 footer .l{width:64px;height:1px;background:var(--gold-grad);margin:0 auto 14px;opacity:.7}
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom, 0px));transform:translate(-50%,20px);background:var(--gold-grad);color:#1a1507;padding:9px 18px;border-radius:60px;font-size:14px;font-weight:700;opacity:0;pointer-events:none;transition:.25s}
 .toast.on{opacity:1;transform:translate(-50%,0)}
-@media (prefers-reduced-motion:reduce){.toast,.btn,.area{transition:none}}
+@media (prefers-reduced-motion:reduce){.toast,.btn,.area,.langs button{transition:none}}
 </style>
 </head>
 <body>
 
 <main class="card" dir="rtl" lang="he">
   <div class="hero">
-    <img class="portrait" src="img/portrait.jpg" alt="עו״ד שרון נהרי">
+    <img class="portrait" src="img/portrait.jpg" alt="עו״ד שרון נהרי" data-i18n-alt="portraitAlt">
     <div class="logo"><img src="img/logo.png" alt="שרון נהרי ושות׳ משרד עורכי דין"></div>
-    <div class="avail"><i></i>זמינות 24/7</div>
+    <div class="avail"><i></i><span data-i18n="avail">זמינות 24/7</span></div>
   </div>
 
   <header class="id">
-    <div class="role">עורך דין פלילי</div>
-    <h1>שרון נהרי ושות׳</h1>
-    <p class="tag">יצירתיות משפטית</p>
+    <div class="langs" role="group" aria-label="Language"><button type="button" data-lang="he" lang="he" aria-label="עברית" title="עברית" aria-pressed="true"><svg viewBox="0 0 30 30" aria-hidden="true"><clipPath id="fIL"><circle cx="15" cy="15" r="15"/></clipPath><g clip-path="url(#fIL)"><rect width="30" height="30" fill="#fff"/><rect y="5" width="30" height="3.4" fill="#0038b8"/><rect y="21.6" width="30" height="3.4" fill="#0038b8"/><g fill="none" stroke="#0038b8" stroke-width="1.1"><path d="M15 10.3l4.1 7.1h-8.2z"/><path d="M15 19.7l-4.1-7.1h8.2z"/></g></g></svg></button><button type="button" data-lang="en" lang="en" aria-label="English" title="English" aria-pressed="false"><svg viewBox="0 0 30 30" aria-hidden="true"><clipPath id="fGB"><circle cx="15" cy="15" r="15"/></clipPath><g clip-path="url(#fGB)"><rect width="30" height="30" fill="#012169"/><path d="M0 0l30 30M30 0L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l30 30M30 0L0 30" stroke="#c8102e" stroke-width="2"/><path d="M15 0v30M0 15h30" stroke="#fff" stroke-width="9"/><path d="M15 0v30M0 15h30" stroke="#c8102e" stroke-width="5"/></g></svg></button><button type="button" data-lang="ru" lang="ru" aria-label="Русский" title="Русский" aria-pressed="false"><svg viewBox="0 0 30 30" aria-hidden="true"><clipPath id="fRU"><circle cx="15" cy="15" r="15"/></clipPath><g clip-path="url(#fRU)"><rect width="30" height="10" fill="#fff"/><rect y="10" width="30" height="10" fill="#0039a6"/><rect y="20" width="30" height="10" fill="#d52b1e"/></g></svg></button><button type="button" data-lang="el" lang="el" aria-label="Ελληνικά" title="Ελληνικά" aria-pressed="false"><svg viewBox="0 0 30 30" aria-hidden="true"><clipPath id="fGR"><circle cx="15" cy="15" r="15"/></clipPath><g clip-path="url(#fGR)"><rect width="30" height="30" fill="#0d5eaf"/><g fill="#fff"><rect y="3.33" width="30" height="3.33"/><rect y="10" width="30" height="3.33"/><rect y="16.67" width="30" height="3.33"/><rect y="23.33" width="30" height="3.33"/></g><rect width="16.67" height="16.67" fill="#0d5eaf"/><rect x="6.67" width="3.33" height="16.67" fill="#fff"/><rect y="6.67" width="16.67" height="3.33" fill="#fff"/></g></svg></button><button type="button" data-lang="de" lang="de" aria-label="Deutsch" title="Deutsch" aria-pressed="false"><svg viewBox="0 0 30 30" aria-hidden="true"><clipPath id="fDE"><circle cx="15" cy="15" r="15"/></clipPath><g clip-path="url(#fDE)"><rect width="30" height="10" fill="#000"/><rect y="10" width="30" height="10" fill="#dd0000"/><rect y="20" width="30" height="10" fill="#ffce00"/></g></svg></button></div>
+    <div class="langname" id="langName">עברית</div>
+    <div class="role" data-i18n="role">עורך דין פלילי</div>
+    <h1 data-i18n="name">שרון נהרי ושות׳</h1>
+    <p class="tag" data-i18n="tag">יצירתיות משפטית</p>
     <svg class="swoosh" viewBox="0 0 300 16" aria-hidden="true"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#c2a04d" stop-opacity="0"/><stop offset=".3" stop-color="#c2a04d"/><stop offset=".55" stop-color="#f8e2b2"/><stop offset=".8" stop-color="#ba9846"/><stop offset="1" stop-color="#ba9846" stop-opacity="0"/></linearGradient></defs><path d="M2 13 C 80 2, 220 2, 298 13" fill="none" stroke="url(#g)" stroke-width="2" stroke-linecap="round"/></svg>
-    <p class="lead">משרד מהמובילים בישראל בפלילי, צווארון לבן, עבירות מין והסגרות בינלאומיות.</p>
-    <div class="facts"><span>הוקם ב-1998</span><span>כל הערכאות, לרבות העליון</span><span>ישראל וחו״ל</span></div>
+    <p class="lead" data-i18n="lead">משרד מהמובילים בישראל בפלילי, צווארון לבן, עבירות מין והסגרות בינלאומיות.</p>
+    <div class="facts"><span data-i18n="f1">הוקם ב-1998</span><span data-i18n="f2">כל הערכאות, לרבות העליון</span><span data-i18n="f3">ישראל וחו״ל</span></div>
   </header>
 
-  <nav class="cta" aria-label="יצירת קשר">
-    <a class="btn outline" href="tel:036969080"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>לייעוץ ראשוני <span class="num">03-6969080</span></a>
-    <a class="btn outline" href="https://wa.me/972542255533"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1.3-4.2A8 8 0 1 1 8.4 18.8z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-.8.8c-.9-.4-1.6-1.1-2-2l.8-.8-1-2z"/></svg>לייעוץ מיידי בוואטסאפ</a>
-    <a class="btn gold" id="vcf" href="sharon-nahari-law.vcf" download="Sharon Nahari and Co Law Offices.vcf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/><path d="M19 3v6M16 6h6"/></svg>שמירה לאנשי קשר</a>
-    <a class="btn outline" id="shareCard" href="#share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg><span dir="ltr">Share Digital Business Card</span></a>
+  <nav class="cta" aria-label="יצירת קשר" data-i18n-aria="navAria">
+    <a class="btn outline" href="tel:036969080"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg><span data-i18n="call">לייעוץ ראשוני</span> <span class="num">03-6969080</span></a>
+    <a class="btn outline" href="https://wa.me/972542255533"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1.3-4.2A8 8 0 1 1 8.4 18.8z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-.8.8c-.9-.4-1.6-1.1-2-2l.8-.8-1-2z"/></svg><span data-i18n="wa">לייעוץ מיידי בוואטסאפ</span></a>
+    <a class="btn gold" id="vcf" href="sharon-nahari-law.vcf" download="Sharon Nahari and Co Law Offices.vcf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/><path d="M19 3v6M16 6h6"/></svg><span data-i18n="vcf">שמירה לאנשי קשר</span></a>
+    <a class="btn outline" id="shareCard" href="#share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg><span data-i18n="share">Share Digital Business Card</span></a>
     <div class="sharebox" id="sharebox" hidden>
-      <a class="btn outline wa" id="waShare" href="https://wa.me/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1.3-4.2A8 8 0 1 1 8.4 18.8z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-.8.8c-.9-.4-1.6-1.1-2-2l.8-.8-1-2z"/></svg>שליחה בוואטסאפ</a>
+      <a class="btn outline wa" id="waShare" href="https://wa.me/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1.3-4.2A8 8 0 1 1 8.4 18.8z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-.8.8c-.9-.4-1.6-1.1-2-2l.8-.8-1-2z"/></svg><span data-i18n="waSend">שליחה בוואטסאפ</span></a>
       <div class="btn-row">
-        <button class="btn ghost" id="copyLink" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>העתקת הקישור</button>
-        <button class="btn ghost" id="natShare" type="button" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><path d="M12 3v13M7 8l5-5 5 5"/></svg>שיתוף נוסף</button>
+        <button class="btn ghost" id="copyLink" type="button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg><span data-i18n="copyLink">העתקת הקישור</span></button>
+        <button class="btn ghost" id="natShare" type="button" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><path d="M12 3v13M7 8l5-5 5 5"/></svg><span data-i18n="more">שיתוף נוסף</span></button>
       </div>
       <div class="linkbox"><span class="num" id="linkText"></span></div>
     </div>
     <div class="btn-row">
-      <a class="btn ghost" href="https://www.waze.com/he/live-map/directions/%D7%99%D7%A9%D7%A8%D7%90%D7%9C/%D7%9E%D7%97%D7%95%D7%96-%D7%AA%D7%9C-%D7%90%D7%91%D7%99%D7%91/%D7%91%D7%A0%D7%99-%D7%91%D7%A8%D7%A7/%D7%9E%D7%A9%D7%A8%D7%93-%D7%A2%D7%95%D7%93-%D7%A4%D7%9C%D7%99%D7%9C%D7%99-%D7%A9%D7%A8%D7%95%D7%9F-%D7%A0%D7%94%D7%A8%D7%99?to=place.ChIJA0yt_plLHRURVqANpjTymQ4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>ניווט למשרד</a>
-      <a class="btn ghost" href="https://nahari-law.co.il/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>לאתר המשרד</a>
+      <a class="btn ghost" href="https://www.waze.com/he/live-map/directions/%D7%99%D7%A9%D7%A8%D7%90%D7%9C/%D7%9E%D7%97%D7%95%D7%96-%D7%AA%D7%9C-%D7%90%D7%91%D7%99%D7%91/%D7%91%D7%A0%D7%99-%D7%91%D7%A8%D7%A7/%D7%9E%D7%A9%D7%A8%D7%93-%D7%A2%D7%95%D7%93-%D7%A4%D7%9C%D7%99%D7%9C%D7%99-%D7%A9%D7%A8%D7%95%D7%9F-%D7%A0%D7%94%D7%A8%D7%99?to=place.ChIJA0yt_plLHRURVqANpjTymQ4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span data-i18n="nav">ניווט למשרד</span></a>
+      <a class="btn ghost" href="https://nahari-law.co.il/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span data-i18n="site">לאתר המשרד</span></a>
     </div>
   </nav>
 
-  <section class="sec" aria-label="פרטי התקשרות">
-    <h2>פרטי התקשרות</h2>
+  <section class="sec" aria-label="פרטי התקשרות" data-i18n-aria="hContact">
+    <h2 data-i18n="hContact">פרטי התקשרות</h2>
     <div class="rows">
-      <div class="row"><div class="t"><small>טלפון · 24/7</small><b class="num">03-6969080</b></div><button class="cp" data-copy="03-6969080">העתקה</button></div>
-      <div class="row"><div class="t"><small>טלפון נוסף</small><b class="num">03-6968070</b></div><button class="cp" data-copy="03-6968070">העתקה</button></div>
-      <div class="row"><div class="t"><small>וואטסאפ</small><b class="num">054-2255533</b></div><button class="cp" data-copy="054-2255533">העתקה</button></div>
-      <div class="row"><div class="t"><small>כתובת</small><b>רחוב מצדה 7, מגדל בסר 4, קומה 40, בני ברק</b></div><button class="cp" data-copy="רחוב מצדה 7, מגדל בסר 4, קומה 40, בני ברק">העתקה</button></div>
-      <div class="row"><div class="t"><small>אתר</small><b class="num">nahari-law.co.il</b></div><button class="cp" data-copy="https://nahari-law.co.il/">העתקה</button></div>
+      <div class="row"><div class="t"><small data-i18n="lPhone">טלפון · 24/7</small><b class="num">03-6969080</b></div><button class="cp" data-copy="03-6969080" data-i18n="copy">העתקה</button></div>
+      <div class="row"><div class="t"><small data-i18n="lPhone2">טלפון נוסף</small><b class="num">03-6968070</b></div><button class="cp" data-copy="03-6968070" data-i18n="copy">העתקה</button></div>
+      <div class="row"><div class="t"><small data-i18n="lWa">וואטסאפ</small><b class="num">054-2255533</b></div><button class="cp" data-copy="054-2255533" data-i18n="copy">העתקה</button></div>
+      <div class="row"><div class="t"><small data-i18n="lAddr">כתובת</small><b data-i18n="addr">רחוב מצדה 7, מגדל בסר 4, קומה 40, בני ברק</b></div><button class="cp" id="addrCopy" data-copy="רחוב מצדה 7, מגדל בסר 4, קומה 40, בני ברק" data-i18n="copy">העתקה</button></div>
+      <div class="row"><div class="t"><small data-i18n="lSite">אתר</small><b class="num">nahari-law.co.il</b></div><button class="cp" data-copy="https://nahari-law.co.il/" data-i18n="copy">העתקה</button></div>
     </div>
   </section>
 
-  <section class="sec" aria-label="תחומי התמחות">
-    <h2>תחומי התמחות</h2>
+  <section class="sec" aria-label="תחומי התמחות" data-i18n-aria="hAreas">
+    <h2 data-i18n="hAreas">תחומי התמחות</h2>
     <div class="areas">
-      <a class="area" href="https://nahari-law.co.il/%d7%94%d7%9b%d7%a0%d7%94-%d7%9c%d7%97%d7%a7%d7%99%d7%a8%d7%94-%d7%91%d7%9e%d7%a9%d7%98%d7%a8%d7%94/"><div class="mark"></div><b>משפט פלילי</b><span>מהחקירה הראשונה ועד הערעור</span></a>
-      <a class="area" href="https://nahari-law.co.il/white-collar-crime-lawyer/"><div class="mark"></div><b>צווארון לבן וקריפטו</b><span>הלבנת הון, עבירות מס, גילוי מרצון</span></a>
-      <a class="area" href="https://nahari-law.co.il/sex-offenses-lawyer/"><div class="mark"></div><b>עבירות מין</b><span>ליווי דיסקרטי מהרגע הראשון</span></a>
-      <a class="area" href="https://nahari-law.co.il/%d7%a9%d7%99%d7%a8%d7%95%d7%aa%d7%99-%d7%94%d7%9e%d7%a9%d7%a8%d7%93/%d7%93%d7%99%d7%a0%d7%99-%d7%94%d7%a1%d7%92%d7%a8%d7%94/"><div class="mark"></div><b>הסגרות ובינלאומי</b><span>הליכי הסגרה, אינטרפול, עיכוב יציאה</span></a>
+      <a class="area" href="https://nahari-law.co.il/%d7%94%d7%9b%d7%a0%d7%94-%d7%9c%d7%97%d7%a7%d7%99%d7%a8%d7%94-%d7%91%d7%9e%d7%a9%d7%98%d7%a8%d7%94/"><div class="mark"></div><b data-i18n="a1">משפט פלילי</b><span data-i18n="a1d">מהחקירה הראשונה ועד הערעור</span></a>
+      <a class="area" href="https://nahari-law.co.il/white-collar-crime-lawyer/"><div class="mark"></div><b data-i18n="a2">צווארון לבן וקריפטו</b><span data-i18n="a2d">הלבנת הון, עבירות מס, גילוי מרצון</span></a>
+      <a class="area" href="https://nahari-law.co.il/sex-offenses-lawyer/"><div class="mark"></div><b data-i18n="a3">עבירות מין</b><span data-i18n="a3d">ליווי דיסקרטי מהרגע הראשון</span></a>
+      <a class="area" href="https://nahari-law.co.il/%d7%a9%d7%99%d7%a8%d7%95%d7%aa%d7%99-%d7%94%d7%9e%d7%a9%d7%a8%d7%93/%d7%93%d7%99%d7%a0%d7%99-%d7%94%d7%a1%d7%92%d7%a8%d7%94/"><div class="mark"></div><b data-i18n="a4">הסגרות ובינלאומי</b><span data-i18n="a4d">הליכי הסגרה, אינטרפול, עיכוב יציאה</span></a>
     </div>
   </section>
 
-  <section class="sec" aria-label="דירוגים וחברות">
-    <h2>מדורג בין המובילים בישראל</h2>
+  <section class="sec" aria-label="דירוגים וחברות" data-i18n-aria="hRank">
+    <h2 data-i18n="hRank">מדורג בין המובילים בישראל</h2>
     <div class="badges">
       <img src="img/bdi.png" alt="BDI Code">
       <img src="img/duns.png" alt="Dun's 100">
     </div>
     <div class="chips">
-      <span>LB10 2026</span><span>Dun’s 100 Forum 2026</span><span>לשכת עורכי הדין</span><span>ECBA</span><span>ELA</span><span>DELF</span>
+      <span>LB10 2026</span><span>Dun’s 100 Forum 2026</span><span data-i18n="bar">לשכת עורכי הדין</span><span>ECBA</span><span>ELA</span><span>DELF</span>
     </div>
-    <p class="note">עו״ד שרון נהרי, מייסד ועדת ההסגרות והפשיעה הבינלאומית בלשכת עורכי הדין, מרצה ופרשן משפטי בתקשורת.</p>
+    <p class="note" data-i18n="note">עו״ד שרון נהרי, מייסד ועדת ההסגרות והפשיעה הבינלאומית בלשכת עורכי הדין, מרצה ופרשן משפטי בתקשורת.</p>
   </section>
 
-  <section class="sec" aria-label="עורכי הדין במשרד">
-    <h2>צוות המשרד</h2>
+  <section class="sec" aria-label="עורכי הדין במשרד" data-i18n-aria="hTeam">
+    <h2 data-i18n="hTeam">צוות המשרד</h2>
     <ul class="team">
-      <li>עו״ד שרון נהרי</li><li>אלון רום</li><li>תבור לנג</li><li>יוסי חביב</li><li>אנה בן-אור</li>
+      <li data-i18n="t1">עו״ד שרון נהרי</li><li data-i18n="t2">אלון רום</li><li data-i18n="t3">תבור לנג</li><li data-i18n="t4">יוסי חביב</li><li data-i18n="t5">אנה בן-אור</li>
     </ul>
   </section>
 
-  <section class="sec" aria-label="שיתוף ורשתות">
-    <h2>שיתוף</h2>
+  <section class="sec" aria-label="שיתוף ורשתות" data-i18n-aria="hShare">
+    <h2 data-i18n="hShare">שיתוף</h2>
     <div class="share">
-      <div class="qr" id="qr" aria-label="קוד QR לאתר המשרד"></div>
-      <p><b>סרקו לפתיחת הכרטיס</b>הקוד מוביל לכרטיס הזה. מתאים לכרטיסי ביקור מודפסים ולדלת המשרד.</p>
+      <div class="qr" id="qr" aria-label="קוד QR לכרטיס" data-i18n-aria="qrAria"></div>
+      <p><b data-i18n="scan">סרקו לפתיחת הכרטיס</b><span data-i18n="scanD">הקוד מוביל לכרטיס הזה. מתאים לכרטיסי ביקור מודפסים ולדלת המשרד.</span></p>
     </div>
     <div class="social">
       <a href="https://www.linkedin.com/in/sharonnahari/">LinkedIn</a>
@@ -231,7 +244,7 @@ footer .l{width:64px;height:1px;background:var(--gold-grad);margin:0 auto 14px;o
     </div>
   </section>
 
-  <footer><div class="l"></div>© 2026 שרון נהרי ושות׳ · משרד עורכי דין<br>Sharon Nahari &amp; Co. Law Offices</footer>
+  <footer><div class="l"></div><span dir="auto" data-i18n="foot1">© 2026 שרון נהרי ושות׳ · משרד עורכי דין</span><br><span dir="auto" data-i18n="foot2">Sharon Nahari &amp; Co. Law Offices</span></footer>
 </main>
 <div class="toast" id="toast" role="status" aria-live="polite">הועתק</div>
 
@@ -2538,23 +2551,138 @@ var qrcode = function() {
 <script>
 (function(){
   var CARD_URL=(function(){var c=document.querySelector('link[rel=canonical]');var u=location.origin+location.pathname;return (location.protocol==='https:'&&!/github\.io|netlify|vercel|pages\.dev/.test(location.host)&&c)?c.href:u})();
-  var MSG='Sharon Nahari & Co.\nInternational Law Firm\n\nDigital Business Card:\n'+CARD_URL;
+  var MSG='';
   var toast=document.getElementById('toast'),tm;
+  /* ---------- languages ---------- */
+  var L={
+    he:{dir:'rtl',lname:'עברית',nav:'ניווט למשרד',
+      avail:'זמינות 24/7',portraitAlt:'עו״ד שרון נהרי',role:'עורך דין פלילי',name:'שרון נהרי ושות׳',tag:'יצירתיות משפטית',
+      lead:'משרד מהמובילים בישראל בפלילי, צווארון לבן, עבירות מין והסגרות בינלאומיות.',
+      f1:'הוקם ב-1998',f2:'כל הערכאות, לרבות העליון',f3:'ישראל וחו״ל',navAria:'יצירת קשר',
+      call:'לייעוץ ראשוני',wa:'לייעוץ מיידי בוואטסאפ',vcf:'שמירה לאנשי קשר',share:'Share Digital Business Card',
+      waSend:'שליחה בוואטסאפ',copyLink:'העתקת הקישור',more:'שיתוף נוסף',site:'לאתר המשרד',
+      hContact:'פרטי התקשרות',lPhone:'טלפון · 24/7',lPhone2:'טלפון נוסף',lWa:'וואטסאפ',lAddr:'כתובת',lSite:'אתר',
+      addr:'רחוב מצדה 7, מגדל בסר 4, קומה 40, בני ברק',copy:'העתקה',
+      hAreas:'תחומי התמחות',a1:'משפט פלילי',a1d:'מהחקירה הראשונה ועד הערעור',a2:'צווארון לבן וקריפטו',a2d:'הלבנת הון, עבירות מס, גילוי מרצון',
+      a3:'עבירות מין',a3d:'ליווי דיסקרטי מהרגע הראשון',a4:'הסגרות ובינלאומי',a4d:'הליכי הסגרה, אינטרפול, עיכוב יציאה',
+      hRank:'מדורג בין המובילים בישראל',bar:'לשכת עורכי הדין',
+      note:'עו״ד שרון נהרי, מייסד ועדת ההסגרות והפשיעה הבינלאומית בלשכת עורכי הדין, מרצה ופרשן משפטי בתקשורת.',
+      hTeam:'צוות המשרד',t1:'עו״ד שרון נהרי',t2:'אלון רום',t3:'תבור לנג',t4:'יוסי חביב',t5:'אנה בן-אור',
+      hShare:'שיתוף',qrAria:'קוד QR לכרטיס',scan:'סרקו לפתיחת הכרטיס',scanD:'הקוד מוביל לכרטיס הזה. מתאים לכרטיסי ביקור מודפסים ולדלת המשרד.',
+      foot1:'© 2026 שרון נהרי ושות׳ · משרד עורכי דין',foot2:'Sharon Nahari & Co. Law Offices',
+      copied:'הועתק',copyManual:'סמנו והעתיקו ידנית',
+      shareMsg:'Sharon Nahari & Co.\nInternational Law Firm\n\nDigital Business Card:'},
+    en:{dir:'ltr',lname:'English',nav:'Directions',
+      avail:'Available 24/7',portraitAlt:'Adv. Sharon Nahari',role:'Criminal Defense',name:'Sharon Nahari & Co.',tag:'Legal Creativity',
+      lead:'One of Israel’s leading firms in criminal law, white-collar crime, sex offenses and international extradition.',
+      f1:'Founded 1998',f2:'All courts, incl. the Supreme Court',f3:'Israel & abroad',navAria:'Contact',
+      call:'Initial consultation',wa:'Instant advice on WhatsApp',vcf:'Save to contacts',share:'Share Digital Business Card',
+      waSend:'Send via WhatsApp',copyLink:'Copy link',more:'More options',site:'Firm website',
+      hContact:'Contact',lPhone:'Phone · 24/7',lPhone2:'Second line',lWa:'WhatsApp',lAddr:'Address',lSite:'Website',
+      addr:'7 Metsada St., BSR 4 Tower, 40th Floor, Bnei Brak, Israel',copy:'Copy',
+      hAreas:'Practice areas',a1:'Criminal law',a1d:'From the first interrogation to appeal',a2:'White-collar & crypto',a2d:'Money laundering, tax offenses, voluntary disclosure',
+      a3:'Sex offenses',a3d:'Discreet representation from day one',a4:'Extradition & international',a4d:'Extradition, INTERPOL, travel bans',
+      hRank:'Ranked among Israel’s leading firms',bar:'Israel Bar Association',
+      note:'Adv. Sharon Nahari, founder of the Extradition and International Crime Committee of the Israel Bar Association, lecturer and legal commentator in the media.',
+      hTeam:'Our team',t1:'Adv. Sharon Nahari',t2:'Alon Rom',t3:'Tavor Lang',t4:'Yossi Haviv',t5:'Anna Ben-Or',
+      hShare:'Share',qrAria:'QR code for this card',scan:'Scan to open the card',scanD:'The code links to this card. Ideal for printed business cards and the office door.',
+      foot1:'© 2026 Sharon Nahari & Co. · Law Offices',foot2:'שרון נהרי ושות׳ · משרד עורכי דין',
+      copied:'Copied',copyManual:'Select and copy manually',
+      shareMsg:'Sharon Nahari & Co.\nInternational Law Firm\n\nDigital Business Card:'},
+    ru:{dir:'ltr',lname:'Русский',nav:'Маршрут',
+      avail:'На связи 24/7',portraitAlt:'Адвокат Шарон Нахари',role:'Уголовная защита',name:'Sharon Nahari & Co.',tag:'Творческий подход к праву',
+      lead:'Одна из ведущих фирм Израиля в области уголовного права, экономических преступлений, преступлений сексуального характера и международной экстрадиции.',
+      f1:'Основана в 1998 г.',f2:'Все инстанции, включая Верховный суд',f3:'Израиль и за рубежом',navAria:'Связаться',
+      call:'Первичная консультация',wa:'Срочная консультация в WhatsApp',vcf:'Сохранить контакт',share:'Поделиться визиткой',
+      waSend:'Отправить в WhatsApp',copyLink:'Копировать ссылку',more:'Другие способы',site:'Сайт фирмы',
+      hContact:'Контакты',lPhone:'Телефон · 24/7',lPhone2:'Доп. телефон',lWa:'WhatsApp',lAddr:'Адрес',lSite:'Сайт',
+      addr:'ул. Мецада 7, башня BSR 4, 40-й этаж, Бней-Брак, Израиль',copy:'Копировать',
+      hAreas:'Направления практики',a1:'Уголовное право',a1d:'От первого допроса до апелляции',a2:'Экономические преступления и крипто',a2d:'Отмывание денег, налоговые преступления, добровольное раскрытие',
+      a3:'Преступления сексуального характера',a3d:'Конфиденциальная защита с первой минуты',a4:'Экстрадиция и международное право',a4d:'Экстрадиция, Интерпол, запрет на выезд',
+      hRank:'В числе ведущих фирм Израиля',bar:'Коллегия адвокатов Израиля',
+      note:'Адвокат Шарон Нахари — основатель Комитета по экстрадиции и международной преступности Коллегии адвокатов Израиля, преподаватель и юридический комментатор в СМИ.',
+      hTeam:'Наша команда',t1:'Адв. Шарон Нахари',t2:'Алон Ром',t3:'Тавор Ланг',t4:'Йоси Хавив',t5:'Анна Бен-Ор',
+      hShare:'Поделиться',qrAria:'QR-код этой визитки',scan:'Отсканируйте, чтобы открыть',scanD:'Код ведёт на эту визитку. Подходит для печатных визиток и двери офиса.',
+      foot1:'© 2026 Sharon Nahari & Co. · Адвокатская контора',foot2:'שרון נהרי ושות׳ · משרד עורכי דין',
+      copied:'Скопировано',copyManual:'Выделите и скопируйте вручную',
+      shareMsg:'Sharon Nahari & Co.\nМеждународная юридическая фирма\n\nЦифровая визитная карточка:'},
+    el:{dir:'ltr',lname:'Ελληνικά',nav:'Οδηγίες',
+      avail:'Διαθέσιμοι 24/7',portraitAlt:'Δικηγόρος Sharon Nahari',role:'Ποινική υπεράσπιση',name:'Sharon Nahari & Co.',tag:'Νομική δημιουργικότητα',
+      lead:'Ένα από τα κορυφαία δικηγορικά γραφεία του Ισραήλ στο ποινικό δίκαιο, στα οικονομικά εγκλήματα, στα σεξουαλικά αδικήματα και στις διεθνείς εκδόσεις.',
+      f1:'Ιδρύθηκε το 1998',f2:'Όλα τα δικαστήρια, και το Ανώτατο',f3:'Ισραήλ και εξωτερικό',navAria:'Επικοινωνία',
+      call:'Αρχική συμβουλευτική',wa:'Άμεση συμβουλή στο WhatsApp',vcf:'Αποθήκευση επαφής',share:'Κοινοποίηση κάρτας',
+      waSend:'Αποστολή μέσω WhatsApp',copyLink:'Αντιγραφή συνδέσμου',more:'Περισσότερα',site:'Ιστότοπος γραφείου',
+      hContact:'Επικοινωνία',lPhone:'Τηλέφωνο · 24/7',lPhone2:'Δεύτερη γραμμή',lWa:'WhatsApp',lAddr:'Διεύθυνση',lSite:'Ιστότοπος',
+      addr:'Οδός Metsada 7, Πύργος BSR 4, 40ός όροφος, Bnei Brak, Ισραήλ',copy:'Αντιγραφή',
+      hAreas:'Τομείς πρακτικής',a1:'Ποινικό δίκαιο',a1d:'Από την πρώτη ανάκριση έως την έφεση',a2:'Οικονομικά εγκλήματα & κρύπτο',a2d:'Ξέπλυμα χρήματος, φορολογικά αδικήματα, εθελοντική αποκάλυψη',
+      a3:'Σεξουαλικά αδικήματα',a3d:'Διακριτική εκπροσώπηση από την πρώτη στιγμή',a4:'Εκδόσεις & διεθνές δίκαιο',a4d:'Έκδοση, INTERPOL, απαγόρευση εξόδου',
+      hRank:'Μεταξύ των κορυφαίων του Ισραήλ',bar:'Δικηγορικός Σύλλογος Ισραήλ',
+      note:'Ο δικηγόρος Sharon Nahari, ιδρυτής της Επιτροπής Εκδόσεων και Διεθνούς Εγκληματικότητας του Δικηγορικού Συλλόγου του Ισραήλ, λέκτορας και νομικός σχολιαστής στα μέσα ενημέρωσης.',
+      hTeam:'Η ομάδα μας',t1:'Δικ. Sharon Nahari',t2:'Alon Rom',t3:'Tavor Lang',t4:'Yossi Haviv',t5:'Anna Ben-Or',
+      hShare:'Κοινοποίηση',qrAria:'Κωδικός QR για αυτή την κάρτα',scan:'Σαρώστε για να ανοίξει η κάρτα',scanD:'Ο κωδικός οδηγεί σε αυτή την κάρτα. Ιδανικός για έντυπες κάρτες και την πόρτα του γραφείου.',
+      foot1:'© 2026 Sharon Nahari & Co. · Δικηγορικό γραφείο',foot2:'שרון נהרי ושות׳ · משרד עורכי דין',
+      copied:'Αντιγράφηκε',copyManual:'Επιλέξτε και αντιγράψτε χειροκίνητα',
+      shareMsg:'Sharon Nahari & Co.\nΔιεθνές δικηγορικό γραφείο\n\nΨηφιακή επαγγελματική κάρτα:'},
+    de:{dir:'ltr',lname:'Deutsch',nav:'Route',
+      avail:'Erreichbar 24/7',portraitAlt:'RA Sharon Nahari',role:'Strafverteidigung',name:'Sharon Nahari & Co.',tag:'Juristische Kreativität',
+      lead:'Eine der führenden Kanzleien Israels für Strafrecht, Wirtschaftsstrafrecht, Sexualstrafrecht und internationale Auslieferungsverfahren.',
+      f1:'Gegründet 1998',f2:'Alle Instanzen, inkl. Oberster Gerichtshof',f3:'Israel & international',navAria:'Kontakt',
+      call:'Erstberatung',wa:'Sofortberatung per WhatsApp',vcf:'Kontakt speichern',share:'Visitenkarte teilen',
+      waSend:'Per WhatsApp senden',copyLink:'Link kopieren',more:'Weitere Optionen',site:'Website der Kanzlei',
+      hContact:'Kontakt',lPhone:'Telefon · 24/7',lPhone2:'Weitere Nummer',lWa:'WhatsApp',lAddr:'Adresse',lSite:'Website',
+      addr:'Metsada-Str. 7, BSR 4 Tower, 40. Stock, Bnei Brak, Israel',copy:'Kopieren',
+      hAreas:'Fachgebiete',a1:'Strafrecht',a1d:'Von der ersten Vernehmung bis zur Berufung',a2:'Wirtschaftsstrafrecht & Krypto',a2d:'Geldwäsche, Steuerdelikte, Selbstanzeige',
+      a3:'Sexualstrafrecht',a3d:'Diskrete Vertretung vom ersten Moment an',a4:'Auslieferung & Internationales',a4d:'Auslieferung, INTERPOL, Ausreiseverbote',
+      hRank:'Zu den führenden Kanzleien Israels',bar:'Israelische Anwaltskammer',
+      note:'RA Sharon Nahari, Gründer des Ausschusses für Auslieferung und internationale Kriminalität der israelischen Anwaltskammer, Dozent und juristischer Kommentator in den Medien.',
+      hTeam:'Unser Team',t1:'RA Sharon Nahari',t2:'Alon Rom',t3:'Tavor Lang',t4:'Yossi Haviv',t5:'Anna Ben-Or',
+      hShare:'Teilen',qrAria:'QR-Code für diese Karte',scan:'Scannen, um die Karte zu öffnen',scanD:'Der Code führt zu dieser Karte. Ideal für gedruckte Visitenkarten und die Bürotür.',
+      foot1:'© 2026 Sharon Nahari & Co. · Rechtsanwaltskanzlei',foot2:'שרון נהרי ושות׳ · משרד עורכי דין',
+      copied:'Kopiert',copyManual:'Bitte manuell kopieren',
+      shareMsg:'Sharon Nahari & Co.\nInternationale Anwaltskanzlei\n\nDigitale Visitenkarte:'}
+  };
+  var cur='he';
+  function T(k){return (L[cur]&&L[cur][k])||L.he[k]||''}
+  function shareUrl(){return cur==='he'?CARD_URL:CARD_URL+'?lang='+cur}
+  function setLang(lang,save){
+    if(!L[lang])lang='he';cur=lang;var d=L[lang];
+    var root=document.documentElement,main=document.querySelector('main');
+    root.lang=lang;root.dir=d.dir;if(main){main.lang=lang;main.dir=d.dir}
+    document.querySelectorAll('[data-i18n]').forEach(function(el){var k=el.getAttribute('data-i18n');if(d[k]!=null)el.textContent=d[k]});
+    document.querySelectorAll('[data-i18n-alt]').forEach(function(el){el.alt=T(el.getAttribute('data-i18n-alt'))});
+    document.querySelectorAll('[data-i18n-aria]').forEach(function(el){el.setAttribute('aria-label',T(el.getAttribute('data-i18n-aria')))});
+    var ac=document.getElementById('addrCopy');if(ac)ac.setAttribute('data-copy',d.addr);
+    var ln=document.getElementById('langName');if(ln)ln.textContent=d.lname;
+    document.querySelectorAll('.langs button').forEach(function(b){b.setAttribute('aria-pressed',b.getAttribute('data-lang')===lang?'true':'false')});
+    var w=document.getElementById('waShare');if(w)w.href='https://wa.me/?text='+encodeURIComponent(T('shareMsg')+'\n'+shareUrl());
+    if(save){
+      try{localStorage.setItem('nahariLang',lang)}catch(e){}
+      try{var u=new URL(location.href);if(lang==='he')u.searchParams.delete('lang');else u.searchParams.set('lang',lang);history.replaceState(null,'',u.pathname+u.search+u.hash)}catch(e){}
+    }
+  }
+  document.querySelectorAll('.langs button').forEach(function(b){b.addEventListener('click',function(){setLang(b.getAttribute('data-lang'),true)})});
+  (function(){
+    var pick=null;
+    try{pick=new URLSearchParams(location.search).get('lang')}catch(e){}
+    if(!L[pick]){try{pick=localStorage.getItem('nahariLang')}catch(e){pick=null}}
+    if(!L[pick]){var nl=((navigator.languages&&navigator.languages[0])||navigator.language||'').slice(0,2).toLowerCase();pick=(nl==='ru'||nl==='el'||nl==='de')?nl:'he'}
+    setLang(pick,false);
+  })();
+
   var sb=document.getElementById('sharebox'),sc=document.getElementById('shareCard'),wa=document.getElementById('waShare'),cl=document.getElementById('copyLink'),ns=document.getElementById('natShare'),lt=document.getElementById('linkText');
-  if(wa)wa.href='https://wa.me/?text='+encodeURIComponent(MSG);
   if(lt)lt.textContent=CARD_URL.replace(/^https?:\/\//,'').replace(/\/$/,'');
   if(sc)sc.addEventListener('click',function(e){e.preventDefault();sb.hidden=!sb.hidden;if(!sb.hidden)sb.scrollIntoView({behavior:'smooth',block:'nearest'})});
-  if(cl)cl.addEventListener('click',function(){copy(CARD_URL)});
-  if(ns&&navigator.share){ns.hidden=false;ns.addEventListener('click',function(){navigator.share({title:'Sharon Nahari & Co. | Digital Business Card',text:'Sharon Nahari & Co.\nInternational Law Firm\n\nDigital Business Card:',url:CARD_URL}).catch(function(){})})}
+  if(cl)cl.addEventListener('click',function(){copy(shareUrl())});
+  if(ns&&navigator.share){ns.hidden=false;ns.addEventListener('click',function(){navigator.share({title:'Sharon Nahari & Co. | Digital Business Card',text:T('shareMsg'),url:shareUrl()}).catch(function(){})})}
   function say(t){toast.textContent=t;toast.classList.add('on');clearTimeout(tm);tm=setTimeout(function(){toast.classList.remove('on')},1600)}
   function fallback(text){
     var ta=document.createElement('textarea');ta.value=text;ta.style.position='fixed';ta.style.opacity='0';
     document.body.appendChild(ta);ta.select();var ok=false;try{ok=document.execCommand('copy')}catch(e){}
-    document.body.removeChild(ta);say(ok?'הועתק':'סמנו והעתיקו ידנית')
+    document.body.removeChild(ta);say(ok?T('copied'):T('copyManual'))
   }
   function copy(text){
     if(navigator.clipboard&&navigator.clipboard.writeText){
-      navigator.clipboard.writeText(text).then(function(){say('הועתק')},function(){fallback(text)})
+      navigator.clipboard.writeText(text).then(function(){say(T('copied'))},function(){fallback(text)})
     }else fallback(text)
   }
   document.querySelectorAll('[data-copy]').forEach(function(b){b.addEventListener('click',function(){copy(b.getAttribute('data-copy'))})});
