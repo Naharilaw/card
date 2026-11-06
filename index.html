@@ -62,16 +62,75 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offse
 .hero .avail i{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 3px rgba(194,160,77,.25)}
 
 /* language switcher */
-.langs{display:flex;gap:8px;justify-content:center;margin-bottom:10px}
-.langs button{width:34px;height:34px;padding:0;border-radius:50%;border:1.5px solid rgba(255,255,255,.18);background:rgba(11,10,8,.55);cursor:pointer;display:grid;place-items:center;transition:transform .15s,border-color .15s,box-shadow .15s;backdrop-filter:blur(6px)}
-.langs button svg{width:26px;height:26px;border-radius:50%;display:block}
-.langs button:hover{transform:translateY(-1px);border-color:var(--gold)}
-.langs button[aria-pressed="true"]{border-color:var(--gold);box-shadow:0 0 0 2px rgba(194,160,77,.35)}
-.langs button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
-.langname{font-size:11px;letter-spacing:.14em;color:var(--mute);font-weight:600;text-transform:uppercase;margin:-4px 0 6px}
+.card{position:relative}
+.lang{position:absolute;top:20px;left:6px;z-index:6}
+@media (min-width:500px){.lang{left:20px}}
+.lang-btn{display:flex;align-items:center;gap:7px;height:38px;padding:0 12px 0 10px;border-radius:60px;border:1px solid var(--line);background:rgba(11,10,8,.62);color:var(--gold-light);font:600 13px/1 var(--body);cursor:pointer;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 4px 18px rgba(0,0,0,.35)}
+.lang-btn:hover{border-color:var(--gold)}
+.lang-btn .ico{width:17px;height:17px;color:var(--gold)}
+.lang-btn .chev{width:14px;height:14px;transition:transform .2s}
+.lang-btn[aria-expanded="true"] .chev{transform:rotate(180deg)}
+.flag{display:inline-block;width:20px;height:20px;border-radius:50%;overflow:hidden;flex:none;box-shadow:0 0 0 1px rgba(255,255,255,.25)}
+.flag svg{display:block;width:100%;height:100%}
+#langFlag{display:flex}
+.lang-menu{position:absolute;top:46px;left:0;min-width:200px;background:#15120c;border:1px solid var(--line);border-radius:16px;padding:6px;box-shadow:0 18px 40px rgba(0,0,0,.55)}
+.lang-title{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);font-weight:600;padding:8px 10px 6px}
+.lang-menu button{display:flex;align-items:center;gap:10px;width:100%;padding:10px;border:0;border-radius:10px;background:transparent;color:var(--fg);font:600 15px/1.2 var(--body);cursor:pointer;text-align:start}
+.lang-menu button .flag{width:24px;height:24px}
+.lang-menu button .ln{flex:1}
+.lang-menu button small{font-size:11px;color:var(--mute);letter-spacing:.08em}
+.lang-menu button:hover,.lang-menu button:focus-visible{background:rgba(194,160,77,.12)}
+.lang-menu button[aria-checked="true"]{background:rgba(194,160,77,.16);color:var(--gold-light)}
+.lang-menu button[aria-checked="true"] small::after{content:" ✓";color:var(--gold)}
+.avail2{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;letter-spacing:.06em;color:var(--gold-light);background:rgba(11,10,8,.55);border:1px solid var(--line);border-radius:60px;padding:5px 12px;margin-bottom:6px}
+.avail2 i{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 3px rgba(194,160,77,.25);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 6px rgba(194,160,77,0)}}
+.btn.call{height:58px;font-size:18px}
+.btn.sm{height:50px;font-size:15px}
+.btn.wa2{border-color:rgba(37,211,102,.75);color:#bdf5d2}
+.skip{position:absolute;top:-60px;left:16px;z-index:100;background:var(--gold-grad);color:#1a1507;padding:10px 16px;border-radius:10px;font-weight:700}
+.skip:focus{top:calc(10px + env(safe-area-inset-top,0px))}
 :root[lang="ru"],:root[lang="el"]{--display:"Noto Sans","Heebo",sans-serif;--body:"Noto Sans","Assistant",sans-serif}
 :root[lang="ru"] h1,:root[lang="el"] h1{font-size:34px}
 [dir="ltr"] .row{text-align:left}
+
+/* accessibility */
+body{padding-bottom:110px}
+.a11y-fab{position:fixed;left:calc(16px + env(safe-area-inset-left,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:40;width:52px;height:52px;border-radius:50%;border:0;background:var(--gold-grad);color:#14110c;display:grid;place-items:center;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,.45),0 0 0 3px rgba(11,10,8,.8)}
+.a11y-fab svg{width:28px;height:28px}
+.a11y-fab:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.a11y-panel{position:fixed;left:calc(12px + env(safe-area-inset-left,0px));right:calc(12px + env(safe-area-inset-right,0px));bottom:calc(82px + env(safe-area-inset-bottom,0px));z-index:45;max-width:380px;max-height:calc(100% - 110px);overflow:auto;background:#15120c;border:1px solid var(--line);border-radius:20px;padding:16px;box-shadow:0 24px 60px rgba(0,0,0,.6);color:var(--fg);font-family:var(--body)}
+.a11y-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.a11y-t{font:700 17px/1.2 var(--display);color:var(--gold-light)}
+.a11y-x{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.16);background:transparent;color:var(--fg);display:grid;place-items:center;cursor:pointer}
+.a11y-x svg{width:18px;height:18px}
+.a11y-size{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border:1px solid rgba(255,255,255,.1);border-radius:14px;margin-bottom:10px;font-weight:600;font-size:14px}
+.a11y-step{display:flex;align-items:center;gap:8px;direction:ltr}
+.a11y-step button{width:40px;height:36px;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--gold-light);font:700 14px/1 var(--body);cursor:pointer}
+.a11y-step output{min-width:46px;text-align:center;font-variant-numeric:tabular-nums;font-size:14px}
+.a11y-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.a11y-opt{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:76px;padding:10px 6px;border-radius:14px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.02);color:var(--fg2);font:600 13px/1.25 var(--body);cursor:pointer;text-align:center}
+.a11y-opt svg{width:24px;height:24px;color:var(--gold)}
+.a11y-opt[aria-pressed="true"]{border-color:var(--gold);background:rgba(194,160,77,.16);color:var(--gold-light)}
+.a11y-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:12px;flex-wrap:wrap}
+.a11y-foot button{border:1px solid rgba(255,255,255,.16);background:transparent;color:var(--fg);border-radius:60px;padding:8px 14px;font:600 13px/1 var(--body);cursor:pointer}
+.a11y-foot a{color:var(--gold-light);font-size:13px;font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.a11y-opt:focus-visible,.a11y-step button:focus-visible,.a11y-foot button:focus-visible,.a11y-x:focus-visible,.lang-btn:focus-visible{outline:2px solid #fff;outline-offset:2px}
+html.a-z1 .id,html.a-z1 .cta,html.a-z1 .sec,html.a-z1 footer{zoom:1.15} html.a-z2 .id,html.a-z2 .cta,html.a-z2 .sec,html.a-z2 footer{zoom:1.3} html.a-z3 .id,html.a-z3 .cta,html.a-z3 .sec,html.a-z3 footer{zoom:1.45}
+html.a-z2 .id,html.a-z3 .id{margin-top:-40px}
+html.a-z1 .btn,html.a-z2 .btn,html.a-z3 .btn{height:auto;min-height:50px;padding:8px 14px;flex-wrap:wrap;text-align:center;row-gap:2px;line-height:1.25}
+.num{white-space:nowrap}
+html.a-contrast{--bg:#000;--bg2:#000;--ink:#000;--fg:#fff;--fg2:#fff;--mute:#f0f0f0;--gold:#ffd84d;--gold-light:#ffe680;--gold-deep:#ffd84d;--gold-grad:linear-gradient(#ffd84d,#ffd84d);--line:#ffd84d}
+html.a-contrast .area,html.a-contrast .badges,html.a-contrast .share,html.a-contrast .row,html.a-contrast .social a,html.a-contrast .btn.ghost{border-color:#fff!important}
+html.a-contrast .hero::after{background:linear-gradient(180deg,rgba(0,0,0,.7),rgba(0,0,0,.2) 30%,rgba(0,0,0,.9) 78%,#000)}
+html.a-gray main{filter:grayscale(1)}
+html.a-links main a,html.a-links main button,html.a-links .a11y-panel a{text-decoration:underline!important;text-underline-offset:3px;outline:2px dashed var(--gold-light);outline-offset:2px}
+html.a-font{--display:Arial,"Noto Sans",Helvetica,sans-serif;--body:Arial,"Noto Sans",Helvetica,sans-serif}
+html.a-font .tag{-webkit-text-fill-color:var(--gold-light);background:none}
+html.a-spacing main *{letter-spacing:.06em!important;word-spacing:.14em!important;line-height:1.85!important}
+html.a-spacing main .btn{height:auto;min-height:54px;padding-block:8px}
+html.a-motion *,html.a-motion *::before,html.a-motion *::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+
 /* identity */
 .id{text-align:center;margin-top:-56px;position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:6px}
 .id .role{font-size:13px;letter-spacing:.16em;color:var(--gold);font-weight:600;text-transform:uppercase}
@@ -145,23 +204,29 @@ h1{font-family:var(--display);font-weight:900;font-size:38px;line-height:1.12;ma
 
 footer{text-align:center;color:var(--mute);font-size:12px;margin-top:36px;letter-spacing:.03em}
 footer .l{width:64px;height:1px;background:var(--gold-grad);margin:0 auto 14px;opacity:.7}
-.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom, 0px));transform:translate(-50%,20px);background:var(--gold-grad);color:#1a1507;padding:9px 18px;border-radius:60px;font-size:14px;font-weight:700;opacity:0;pointer-events:none;transition:.25s}
+.toast{z-index:60;position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom, 0px));transform:translate(-50%,20px);background:var(--gold-grad);color:#1a1507;padding:9px 18px;border-radius:60px;font-size:14px;font-weight:700;opacity:0;pointer-events:none;transition:.25s}
 .toast.on{opacity:1;transform:translate(-50%,0)}
-@media (prefers-reduced-motion:reduce){.toast,.btn,.area,.langs button{transition:none}}
+@media (prefers-reduced-motion:reduce){.toast,.btn,.area,.lang-btn .chev{transition:none}.avail2 i{animation:none}}
 </style>
 </head>
 <body>
+<a class="skip" href="#main" data-i18n="skip">דילוג לתוכן</a>
 
-<main class="card" dir="rtl" lang="he">
+<main class="card" id="main" dir="rtl" lang="he">
+  <div class="lang" id="lang">
+    <button type="button" class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false" aria-controls="langMenu" aria-label="שפה · Language"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg><span id="langFlag"><span class="flag" aria-hidden="true"><svg viewBox="0 0 30 30" preserveAspectRatio="xMidYMid slice"><rect width="30" height="30" fill="#fff"/><rect y="5" width="30" height="3.4" fill="#0038b8"/><rect y="21.6" width="30" height="3.4" fill="#0038b8"/><g fill="none" stroke="#0038b8" stroke-width="1.1"><path d="M15 10.3l4.1 7.1h-8.2z"/><path d="M15 19.7l-4.1-7.1h8.2z"/></g></svg></span></span><span id="langCur">עברית</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+    <div class="lang-menu" id="langMenu" role="menu" aria-labelledby="langBtn" hidden>
+      <div class="lang-title" id="langTitle">בחירת שפה · Language</div>
+      <button type="button" role="menuitemradio" aria-checked="true" data-lang="he" lang="he"><span class="flag" aria-hidden="true"><svg viewBox="0 0 30 30" preserveAspectRatio="xMidYMid slice"><rect width="30" height="30" fill="#fff"/><rect y="5" width="30" height="3.4" fill="#0038b8"/><rect y="21.6" width="30" height="3.4" fill="#0038b8"/><g fill="none" stroke="#0038b8" stroke-width="1.1"><path d="M15 10.3l4.1 7.1h-8.2z"/><path d="M15 19.7l-4.1-7.1h8.2z"/></g></svg></span><span class="ln">עברית</span><small>HE</small></button><button type="button" role="menuitemradio" aria-checked="false" data-lang="en" lang="en"><span class="flag" aria-hidden="true"><svg viewBox="0 0 30 30" preserveAspectRatio="xMidYMid slice"><rect width="30" height="30" fill="#fff"/><rect y="0.000" width="30" height="2.308" fill="#b22234"/><rect y="4.615" width="30" height="2.308" fill="#b22234"/><rect y="9.231" width="30" height="2.308" fill="#b22234"/><rect y="13.846" width="30" height="2.308" fill="#b22234"/><rect y="18.462" width="30" height="2.308" fill="#b22234"/><rect y="23.077" width="30" height="2.308" fill="#b22234"/><rect y="27.692" width="30" height="2.308" fill="#b22234"/><rect width="14.5" height="16.15" fill="#3c3b6e"/><circle cx="2.4" cy="2.6" r=".7" fill="#fff"/><circle cx="5.6" cy="2.6" r=".7" fill="#fff"/><circle cx="8.8" cy="2.6" r=".7" fill="#fff"/><circle cx="12" cy="2.6" r=".7" fill="#fff"/><circle cx="2.4" cy="6.4" r=".7" fill="#fff"/><circle cx="5.6" cy="6.4" r=".7" fill="#fff"/><circle cx="8.8" cy="6.4" r=".7" fill="#fff"/><circle cx="12" cy="6.4" r=".7" fill="#fff"/><circle cx="2.4" cy="10.2" r=".7" fill="#fff"/><circle cx="5.6" cy="10.2" r=".7" fill="#fff"/><circle cx="8.8" cy="10.2" r=".7" fill="#fff"/><circle cx="12" cy="10.2" r=".7" fill="#fff"/><circle cx="2.4" cy="14" r=".7" fill="#fff"/><circle cx="5.6" cy="14" r=".7" fill="#fff"/><circle cx="8.8" cy="14" r=".7" fill="#fff"/><circle cx="12" cy="14" r=".7" fill="#fff"/></svg></span><span class="ln">English</span><small>EN</small></button><button type="button" role="menuitemradio" aria-checked="false" data-lang="ru" lang="ru"><span class="flag" aria-hidden="true"><svg viewBox="0 0 30 30" preserveAspectRatio="xMidYMid slice"><rect width="30" height="10" fill="#fff"/><rect y="10" width="30" height="10" fill="#0039a6"/><rect y="20" width="30" height="10" fill="#d52b1e"/></svg></span><span class="ln">Русский</span><small>RU</small></button><button type="button" role="menuitemradio" aria-checked="false" data-lang="el" lang="el"><span class="flag" aria-hidden="true"><svg viewBox="0 0 30 30" preserveAspectRatio="xMidYMid slice"><rect width="30" height="30" fill="#0d5eaf"/><g fill="#fff"><rect y="3.33" width="30" height="3.33"/><rect y="10" width="30" height="3.33"/><rect y="16.67" width="30" height="3.33"/><rect y="23.33" width="30" height="3.33"/></g><rect width="16.67" height="16.67" fill="#0d5eaf"/><rect x="6.67" width="3.33" height="16.67" fill="#fff"/><rect y="6.67" width="16.67" height="3.33" fill="#fff"/></svg></span><span class="ln">Ελληνικά</span><small>EL</small></button><button type="button" role="menuitemradio" aria-checked="false" data-lang="de" lang="de"><span class="flag" aria-hidden="true"><svg viewBox="0 0 30 30" preserveAspectRatio="xMidYMid slice"><rect width="30" height="10" fill="#000"/><rect y="10" width="30" height="10" fill="#dd0000"/><rect y="20" width="30" height="10" fill="#ffce00"/></svg></span><span class="ln">Deutsch</span><small>DE</small></button>
+    </div>
+  </div>
   <div class="hero">
     <img class="portrait" src="img/portrait.jpg" alt="עו״ד שרון נהרי" data-i18n-alt="portraitAlt">
     <div class="logo"><img src="img/logo.png" alt="שרון נהרי ושות׳ משרד עורכי דין"></div>
-    <div class="avail"><i></i><span data-i18n="avail">זמינות 24/7</span></div>
   </div>
 
   <header class="id">
-    <div class="langs" role="group" aria-label="Language"><button type="button" data-lang="he" lang="he" aria-label="עברית" title="עברית" aria-pressed="true"><svg viewBox="0 0 30 30" aria-hidden="true"><clipPath id="fIL"><circle cx="15" cy="15" r="15"/></clipPath><g clip-path="url(#fIL)"><rect width="30" height="30" fill="#fff"/><rect y="5" width="30" height="3.4" fill="#0038b8"/><rect y="21.6" width="30" height="3.4" fill="#0038b8"/><g fill="none" stroke="#0038b8" stroke-width="1.1"><path d="M15 10.3l4.1 7.1h-8.2z"/><path d="M15 19.7l-4.1-7.1h8.2z"/></g></g></svg></button><button type="button" data-lang="en" lang="en" aria-label="English" title="English" aria-pressed="false"><svg viewBox="0 0 30 30" aria-hidden="true"><clipPath id="fGB"><circle cx="15" cy="15" r="15"/></clipPath><g clip-path="url(#fGB)"><rect width="30" height="30" fill="#012169"/><path d="M0 0l30 30M30 0L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l30 30M30 0L0 30" stroke="#c8102e" stroke-width="2"/><path d="M15 0v30M0 15h30" stroke="#fff" stroke-width="9"/><path d="M15 0v30M0 15h30" stroke="#c8102e" stroke-width="5"/></g></svg></button><button type="button" data-lang="ru" lang="ru" aria-label="Русский" title="Русский" aria-pressed="false"><svg viewBox="0 0 30 30" aria-hidden="true"><clipPath id="fRU"><circle cx="15" cy="15" r="15"/></clipPath><g clip-path="url(#fRU)"><rect width="30" height="10" fill="#fff"/><rect y="10" width="30" height="10" fill="#0039a6"/><rect y="20" width="30" height="10" fill="#d52b1e"/></g></svg></button><button type="button" data-lang="el" lang="el" aria-label="Ελληνικά" title="Ελληνικά" aria-pressed="false"><svg viewBox="0 0 30 30" aria-hidden="true"><clipPath id="fGR"><circle cx="15" cy="15" r="15"/></clipPath><g clip-path="url(#fGR)"><rect width="30" height="30" fill="#0d5eaf"/><g fill="#fff"><rect y="3.33" width="30" height="3.33"/><rect y="10" width="30" height="3.33"/><rect y="16.67" width="30" height="3.33"/><rect y="23.33" width="30" height="3.33"/></g><rect width="16.67" height="16.67" fill="#0d5eaf"/><rect x="6.67" width="3.33" height="16.67" fill="#fff"/><rect y="6.67" width="16.67" height="3.33" fill="#fff"/></g></svg></button><button type="button" data-lang="de" lang="de" aria-label="Deutsch" title="Deutsch" aria-pressed="false"><svg viewBox="0 0 30 30" aria-hidden="true"><clipPath id="fDE"><circle cx="15" cy="15" r="15"/></clipPath><g clip-path="url(#fDE)"><rect width="30" height="10" fill="#000"/><rect y="10" width="30" height="10" fill="#dd0000"/><rect y="20" width="30" height="10" fill="#ffce00"/></g></svg></button></div>
-    <div class="langname" id="langName">עברית</div>
+    <div class="avail2"><i></i><span data-i18n="avail">זמינות 24/7</span></div>
     <div class="role" data-i18n="role">עורך דין פלילי</div>
     <h1 data-i18n="name">שרון נהרי ושות׳</h1>
     <p class="tag" data-i18n="tag">יצירתיות משפטית</p>
@@ -171,9 +236,11 @@ footer .l{width:64px;height:1px;background:var(--gold-grad);margin:0 auto 14px;o
   </header>
 
   <nav class="cta" aria-label="יצירת קשר" data-i18n-aria="navAria">
-    <a class="btn outline" href="tel:036969080"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg><span data-i18n="call">לייעוץ ראשוני</span> <span class="num">03-6969080</span></a>
-    <a class="btn outline" href="https://wa.me/972542255533"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1.3-4.2A8 8 0 1 1 8.4 18.8z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-.8.8c-.9-.4-1.6-1.1-2-2l.8-.8-1-2z"/></svg><span data-i18n="wa">לייעוץ מיידי בוואטסאפ</span></a>
-    <a class="btn gold" id="vcf" href="sharon-nahari-law.vcf" download="Sharon Nahari and Co Law Offices.vcf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/><path d="M19 3v6M16 6h6"/></svg><span data-i18n="vcf">שמירה לאנשי קשר</span></a>
+    <a class="btn gold call" href="tel:036969080"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A15 15 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg><span data-i18n="callNow">שיחה עכשיו · 24/7</span> <span class="num">03-6969080</span></a>
+    <div class="btn-row duo">
+      <a class="btn outline sm wa2" href="https://wa.me/972542255533"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1.3-4.2A8 8 0 1 1 8.4 18.8z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-.8.8c-.9-.4-1.6-1.1-2-2l.8-.8-1-2z"/></svg><span data-i18n="waShort">וואטסאפ</span></a>
+      <a class="btn outline sm" id="vcf" href="sharon-nahari-law.vcf" download="Sharon Nahari and Co Law Offices.vcf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/><path d="M19 3v6M16 6h6"/></svg><span data-i18n="vcfShort">שמירת איש קשר</span></a>
+    </div>
     <a class="btn outline" id="shareCard" href="#share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg><span data-i18n="share">Share Digital Business Card</span></a>
     <div class="sharebox" id="sharebox" hidden>
       <a class="btn outline wa" id="waShare" href="https://wa.me/"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l1.3-4.2A8 8 0 1 1 8.4 18.8z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.5-2-1-.8.8c-.9-.4-1.6-1.1-2-2l.8-.8-1-2z"/></svg><span data-i18n="waSend">שליחה בוואטסאפ</span></a>
@@ -246,6 +313,13 @@ footer .l{width:64px;height:1px;background:var(--gold-grad);margin:0 auto 14px;o
 
   <footer><div class="l"></div><span dir="auto" data-i18n="foot1">© 2026 שרון נהרי ושות׳ · משרד עורכי דין</span><br><span dir="auto" data-i18n="foot2">Sharon Nahari &amp; Co. Law Offices</span></footer>
 </main>
+<button type="button" class="a11y-fab" id="a11yBtn" aria-expanded="false" aria-controls="a11yPanel" aria-label="תפריט נגישות" data-i18n-aria="a11yBtn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="4" r="2.2"/><path d="M4.5 7.6c-.6-.2-1.2.2-1.3.8-.2.6.2 1.2.8 1.3l4.6 1.1v3.4l-1.8 6.1c-.2.6.2 1.2.8 1.4.6.2 1.2-.2 1.4-.8L11 15.5h2l2 5.4c.2.6.8.9 1.4.8.6-.2 1-.8.8-1.4l-1.8-6.1v-3.4l4.6-1.1c.6-.1 1-.7.8-1.3-.1-.6-.7-1-1.3-.8-2.4.6-4.9 1-7.5 1s-5.1-.4-7.5-1z"/></svg></button>
+<div class="a11y-panel" id="a11yPanel" role="dialog" aria-modal="false" aria-labelledby="a11yTitle" hidden>
+  <div class="a11y-head"><div class="a11y-t" id="a11yTitle" data-i18n="a11yTitle">התאמות נגישות</div><button type="button" class="a11y-x" id="a11yClose" aria-label="סגירה" data-i18n-aria="aClose"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <div class="a11y-size"><span data-i18n="aText">גודל טקסט</span><div class="a11y-step"><button type="button" id="aMinus" aria-label="A−">A−</button><output id="aSizeVal" aria-live="polite">100%</output><button type="button" id="aPlus" aria-label="A+">A+</button></div></div>
+  <div class="a11y-grid"><button type="button" class="a11y-opt" data-a11y="contrast" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3v18" /><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg><span data-i18n="aContrast"></span></button><button type="button" class="a11y-opt" data-a11y="gray" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3c3 4 6 7.2 6 10.5A6 6 0 0 1 6 13.5C6 10.2 9 7 12 3z"/></svg><span data-i18n="aGray"></span></button><button type="button" class="a11y-opt" data-a11y="links" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg><span data-i18n="aLinks"></span></button><button type="button" class="a11y-opt" data-a11y="font" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l6-16 6 16M6.5 14h7"/><path d="M17 20v-6a2.5 2.5 0 0 1 5 0v6M17 17h5"/></svg><span data-i18n="aFont"></span></button><button type="button" class="a11y-opt" data-a11y="spacing" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg><span data-i18n="aSpacing"></span></button><button type="button" class="a11y-opt" data-a11y="motion" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg><span data-i18n="aMotion"></span></button></div>
+  <div class="a11y-foot"><button type="button" id="a11yReset" data-i18n="aReset">איפוס הגדרות</button><a href="https://nahari-law.co.il/%D7%94%D7%A6%D7%94%D7%A8%D7%AA-%D7%A0%D7%92%D7%99%D7%A9%D7%95%D7%AA/" data-i18n="aStatement">הצהרת נגישות</a></div>
+</div>
 <div class="toast" id="toast" role="status" aria-live="polite">הועתק</div>
 
 <script>
@@ -2555,7 +2629,7 @@ var qrcode = function() {
   var toast=document.getElementById('toast'),tm;
   /* ---------- languages ---------- */
   var L={
-    he:{dir:'rtl',lname:'עברית',nav:'ניווט למשרד',
+    he:{dir:'rtl',lname:'עברית',callNow:'שיחה עכשיו · 24/7',waShort:'וואטסאפ',vcfShort:'שמירת איש קשר',langMenu:'בחירת שפה',skip:'דילוג לתוכן',a11yBtn:'תפריט נגישות',a11yTitle:'התאמות נגישות',aText:'גודל טקסט',aContrast:'ניגודיות גבוהה',aGray:'גווני אפור',aLinks:'הדגשת קישורים',aFont:'גופן קריא',aSpacing:'ריווח טקסט',aMotion:'עצירת אנימציות',aReset:'איפוס הגדרות',aStatement:'הצהרת נגישות',aClose:'סגירה',nav:'ניווט למשרד',
       avail:'זמינות 24/7',portraitAlt:'עו״ד שרון נהרי',role:'עורך דין פלילי',name:'שרון נהרי ושות׳',tag:'יצירתיות משפטית',
       lead:'משרד מהמובילים בישראל בפלילי, צווארון לבן, עבירות מין והסגרות בינלאומיות.',
       f1:'הוקם ב-1998',f2:'כל הערכאות, לרבות העליון',f3:'ישראל וחו״ל',navAria:'יצירת קשר',
@@ -2572,7 +2646,7 @@ var qrcode = function() {
       foot1:'© 2026 שרון נהרי ושות׳ · משרד עורכי דין',foot2:'Sharon Nahari & Co. Law Offices',
       copied:'הועתק',copyManual:'סמנו והעתיקו ידנית',
       shareMsg:'Sharon Nahari & Co.\nInternational Law Firm\n\nDigital Business Card:'},
-    en:{dir:'ltr',lname:'English',nav:'Directions',
+    en:{dir:'ltr',lname:'English',callNow:'Call now · 24/7',waShort:'WhatsApp',vcfShort:'Save contact',langMenu:'Choose language',skip:'Skip to content',a11yBtn:'Accessibility menu',a11yTitle:'Accessibility',aText:'Text size',aContrast:'High contrast',aGray:'Grayscale',aLinks:'Highlight links',aFont:'Readable font',aSpacing:'Text spacing',aMotion:'Stop animations',aReset:'Reset settings',aStatement:'Accessibility statement',aClose:'Close',nav:'Directions',
       avail:'Available 24/7',portraitAlt:'Adv. Sharon Nahari',role:'Criminal Defense',name:'Sharon Nahari & Co.',tag:'Legal Creativity',
       lead:'One of Israel’s leading firms in criminal law, white-collar crime, sex offenses and international extradition.',
       f1:'Founded 1998',f2:'All courts, incl. the Supreme Court',f3:'Israel & abroad',navAria:'Contact',
@@ -2589,7 +2663,7 @@ var qrcode = function() {
       foot1:'© 2026 Sharon Nahari & Co. · Law Offices',foot2:'שרון נהרי ושות׳ · משרד עורכי דין',
       copied:'Copied',copyManual:'Select and copy manually',
       shareMsg:'Sharon Nahari & Co.\nInternational Law Firm\n\nDigital Business Card:'},
-    ru:{dir:'ltr',lname:'Русский',nav:'Маршрут',
+    ru:{dir:'ltr',lname:'Русский',callNow:'Позвонить · 24/7',waShort:'WhatsApp',vcfShort:'Сохранить контакт',langMenu:'Выбор языка',skip:'Перейти к содержанию',a11yBtn:'Меню доступности',a11yTitle:'Доступность',aText:'Размер текста',aContrast:'Высокий контраст',aGray:'Оттенки серого',aLinks:'Выделить ссылки',aFont:'Удобный шрифт',aSpacing:'Интервалы текста',aMotion:'Остановить анимацию',aReset:'Сбросить настройки',aStatement:'Заявление о доступности',aClose:'Закрыть',nav:'Маршрут',
       avail:'На связи 24/7',portraitAlt:'Адвокат Шарон Нахари',role:'Уголовная защита',name:'Sharon Nahari & Co.',tag:'Творческий подход к праву',
       lead:'Одна из ведущих фирм Израиля в области уголовного права, экономических преступлений, преступлений сексуального характера и международной экстрадиции.',
       f1:'Основана в 1998 г.',f2:'Все инстанции, включая Верховный суд',f3:'Израиль и за рубежом',navAria:'Связаться',
@@ -2606,7 +2680,7 @@ var qrcode = function() {
       foot1:'© 2026 Sharon Nahari & Co. · Адвокатская контора',foot2:'שרון נהרי ושות׳ · משרד עורכי דין',
       copied:'Скопировано',copyManual:'Выделите и скопируйте вручную',
       shareMsg:'Sharon Nahari & Co.\nМеждународная юридическая фирма\n\nЦифровая визитная карточка:'},
-    el:{dir:'ltr',lname:'Ελληνικά',nav:'Οδηγίες',
+    el:{dir:'ltr',lname:'Ελληνικά',callNow:'Κλήση τώρα · 24/7',waShort:'WhatsApp',vcfShort:'Αποθήκευση επαφής',langMenu:'Επιλογή γλώσσας',skip:'Μετάβαση στο περιεχόμενο',a11yBtn:'Μενού προσβασιμότητας',a11yTitle:'Προσβασιμότητα',aText:'Μέγεθος κειμένου',aContrast:'Υψηλή αντίθεση',aGray:'Αποχρώσεις του γκρι',aLinks:'Επισήμανση συνδέσμων',aFont:'Ευανάγνωστη γραμματοσειρά',aSpacing:'Αποστάσεις κειμένου',aMotion:'Διακοπή κινήσεων',aReset:'Επαναφορά ρυθμίσεων',aStatement:'Δήλωση προσβασιμότητας',aClose:'Κλείσιμο',nav:'Οδηγίες',
       avail:'Διαθέσιμοι 24/7',portraitAlt:'Δικηγόρος Sharon Nahari',role:'Ποινική υπεράσπιση',name:'Sharon Nahari & Co.',tag:'Νομική δημιουργικότητα',
       lead:'Ένα από τα κορυφαία δικηγορικά γραφεία του Ισραήλ στο ποινικό δίκαιο, στα οικονομικά εγκλήματα, στα σεξουαλικά αδικήματα και στις διεθνείς εκδόσεις.',
       f1:'Ιδρύθηκε το 1998',f2:'Όλα τα δικαστήρια, και το Ανώτατο',f3:'Ισραήλ και εξωτερικό',navAria:'Επικοινωνία',
@@ -2623,7 +2697,7 @@ var qrcode = function() {
       foot1:'© 2026 Sharon Nahari & Co. · Δικηγορικό γραφείο',foot2:'שרון נהרי ושות׳ · משרד עורכי דין',
       copied:'Αντιγράφηκε',copyManual:'Επιλέξτε και αντιγράψτε χειροκίνητα',
       shareMsg:'Sharon Nahari & Co.\nΔιεθνές δικηγορικό γραφείο\n\nΨηφιακή επαγγελματική κάρτα:'},
-    de:{dir:'ltr',lname:'Deutsch',nav:'Route',
+    de:{dir:'ltr',lname:'Deutsch',callNow:'Jetzt anrufen · 24/7',waShort:'WhatsApp',vcfShort:'Kontakt speichern',langMenu:'Sprache wählen',skip:'Zum Inhalt springen',a11yBtn:'Menü Barrierefreiheit',a11yTitle:'Barrierefreiheit',aText:'Textgröße',aContrast:'Hoher Kontrast',aGray:'Graustufen',aLinks:'Links hervorheben',aFont:'Lesbare Schrift',aSpacing:'Textabstand',aMotion:'Animationen stoppen',aReset:'Zurücksetzen',aStatement:'Erklärung zur Barrierefreiheit',aClose:'Schließen',nav:'Route',
       avail:'Erreichbar 24/7',portraitAlt:'RA Sharon Nahari',role:'Strafverteidigung',name:'Sharon Nahari & Co.',tag:'Juristische Kreativität',
       lead:'Eine der führenden Kanzleien Israels für Strafrecht, Wirtschaftsstrafrecht, Sexualstrafrecht und internationale Auslieferungsverfahren.',
       f1:'Gegründet 1998',f2:'Alle Instanzen, inkl. Oberster Gerichtshof',f3:'Israel & international',navAria:'Kontakt',
@@ -2652,15 +2726,52 @@ var qrcode = function() {
     document.querySelectorAll('[data-i18n-alt]').forEach(function(el){el.alt=T(el.getAttribute('data-i18n-alt'))});
     document.querySelectorAll('[data-i18n-aria]').forEach(function(el){el.setAttribute('aria-label',T(el.getAttribute('data-i18n-aria')))});
     var ac=document.getElementById('addrCopy');if(ac)ac.setAttribute('data-copy',d.addr);
-    var ln=document.getElementById('langName');if(ln)ln.textContent=d.lname;
-    document.querySelectorAll('.langs button').forEach(function(b){b.setAttribute('aria-pressed',b.getAttribute('data-lang')===lang?'true':'false')});
+    var lc=document.getElementById('langCur');if(lc)lc.textContent=d.lname;
+    var lf=document.getElementById('langFlag'),mi=document.querySelector('#langMenu [data-lang="'+lang+'"] .flag');if(lf&&mi)lf.innerHTML=mi.outerHTML;
+    var lt2=document.getElementById('langTitle');if(lt2)lt2.textContent=lang==='en'?d.langMenu:d.langMenu+' · Language';
+    document.querySelectorAll('#langMenu [data-lang]').forEach(function(b){b.setAttribute('aria-checked',b.getAttribute('data-lang')===lang?'true':'false')});
+    var sv=document.getElementById('aSizeVal');if(sv&&window.__a11yRender)window.__a11yRender();
     var w=document.getElementById('waShare');if(w)w.href='https://wa.me/?text='+encodeURIComponent(T('shareMsg')+'\n'+shareUrl());
     if(save){
       try{localStorage.setItem('nahariLang',lang)}catch(e){}
       try{var u=new URL(location.href);if(lang==='he')u.searchParams.delete('lang');else u.searchParams.set('lang',lang);history.replaceState(null,'',u.pathname+u.search+u.hash)}catch(e){}
     }
   }
-  document.querySelectorAll('.langs button').forEach(function(b){b.addEventListener('click',function(){setLang(b.getAttribute('data-lang'),true)})});
+  /* ---------- language menu ---------- */
+  var lb=document.getElementById('langBtn'),lm=document.getElementById('langMenu');
+  function langOpen(o,focus){lm.hidden=!o;lb.setAttribute('aria-expanded',o?'true':'false');if(o&&focus){var c=lm.querySelector('[aria-checked="true"]')||lm.querySelector('[data-lang]');if(c)c.focus()}}
+  lb.addEventListener('click',function(e){e.stopPropagation();langOpen(lm.hidden,true)});
+  lm.addEventListener('click',function(e){var b=e.target.closest('[data-lang]');if(!b)return;setLang(b.getAttribute('data-lang'),true);langOpen(false);lb.focus()});
+  lm.addEventListener('keydown',function(e){var it=[].slice.call(lm.querySelectorAll('[data-lang]')),i=it.indexOf(document.activeElement);
+    if(e.key==='ArrowDown'){e.preventDefault();it[(i+1)%it.length].focus()}
+    else if(e.key==='ArrowUp'){e.preventDefault();it[(i-1+it.length)%it.length].focus()}
+    else if(e.key==='Escape'){langOpen(false);lb.focus()}
+    else if(e.key==='Tab'){langOpen(false)}});
+  document.addEventListener('click',function(e){if(!lm.hidden&&!e.target.closest('#lang'))langOpen(false)});
+
+  /* ---------- accessibility ---------- */
+  var A={size:0,contrast:false,gray:false,links:false,font:false,spacing:false,motion:false};
+  try{var sA=JSON.parse(localStorage.getItem('nahariA11y')||'null');if(sA)for(var k in A)if(k in sA)A[k]=sA[k]}catch(e){}
+  var ab=document.getElementById('a11yBtn'),ap=document.getElementById('a11yPanel'),SIZES=[100,115,130,145];
+  function a11yApply(){
+    var r=document.documentElement;
+    ['a-z1','a-z2','a-z3'].forEach(function(c,i){r.classList.toggle(c,A.size===i+1)});
+    ['contrast','gray','links','font','spacing','motion'].forEach(function(k){r.classList.toggle('a-'+k,!!A[k])});
+    document.querySelectorAll('.a11y-opt').forEach(function(b){b.setAttribute('aria-pressed',A[b.getAttribute('data-a11y')]?'true':'false')});
+    var sv=document.getElementById('aSizeVal');if(sv)sv.textContent=SIZES[A.size]+'%';
+    try{localStorage.setItem('nahariA11y',JSON.stringify(A))}catch(e){}
+  }
+  window.__a11yRender=a11yApply;
+  function a11yOpen(o){ap.hidden=!o;ab.setAttribute('aria-expanded',o?'true':'false');if(o){var f=ap.querySelector('#a11yClose');if(f)f.focus()}else ab.focus()}
+  ab.addEventListener('click',function(){a11yOpen(ap.hidden)});
+  document.getElementById('a11yClose').addEventListener('click',function(){a11yOpen(false)});
+  document.getElementById('aPlus').addEventListener('click',function(){if(A.size<3){A.size++;a11yApply()}});
+  document.getElementById('aMinus').addEventListener('click',function(){if(A.size>0){A.size--;a11yApply()}});
+  document.querySelectorAll('.a11y-opt').forEach(function(b){b.addEventListener('click',function(){var k=b.getAttribute('data-a11y');A[k]=!A[k];a11yApply()})});
+  document.getElementById('a11yReset').addEventListener('click',function(){A={size:0,contrast:false,gray:false,links:false,font:false,spacing:false,motion:false};a11yApply()});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(!ap.hidden)a11yOpen(false);if(!lm.hidden){langOpen(false);lb.focus()}}});
+  document.addEventListener('click',function(e){if(!ap.hidden&&!e.target.closest('#a11yPanel')&&!e.target.closest('#a11yBtn'))a11yOpen(false)});
+  a11yApply();
   (function(){
     var pick=null;
     try{pick=new URLSearchParams(location.search).get('lang')}catch(e){}
